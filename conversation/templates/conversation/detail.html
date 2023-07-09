@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Conversation{% endblock %}
+
+{% block content %}
+<h1 class="mb-6 text-3xl">Conversation</h1>
+
+
+
+<div class="space-y-6 p-3 relative grid justify-items-center max-h-[50vh] overflow-y-scroll">
+    {% for message in conversation.messages.all %}
+            <div class="p-6 relative flex flex-col {% if message.created_by == request.user %} bg-green-100   ml-12 w-1/2 rounded-l-3xl    {% else %} bg-blue-100 mr-12 w-1/2 rounded-r-3xl  {% endif %} ">
+                <div>
+                    <p class="mb-4"><strong>@{{ message.created_by.username }}</strong> |  {{ message.created_at }}</p>
+                    <p>{{ message.content }}</p>
+                </div>
+            </div>
+    {% endfor %}
+</div>
+
+
+<!-- <div class="space-y-6">
+    {% for message in conversation.messages.all %}
+            <div class="p-6  flex {% if message.created_by == request.user %} bg-blue-100  {% else %} bg-green-100 {% endif %} rounded-xl">
+                <div>
+                    <p class="mb-4"><strong>{{ message.created_by.username }}</strong> @ {{ message.created_at }}</p>
+                    <p>{{ message.content }}</p>
+                </div>
+            </div>
+    {% endfor %}
+</div> -->
+
+<form action="" method="post" class="mt-6  flex flex-row justify-center space-x-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="py-4 px-6   h-fit text-lg bg-teal-500 hover:bg-teal-700 rounded-full text-white">Send</button>
+
+</form>
+
+{% endblock %}

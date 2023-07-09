@@ -1,0 +1,66 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Items{% endblock title %}
+
+{% block content %}
+
+    <div class="pb-6 grid grid-cols-4 gap-4">
+        <div class="col-span1">
+            <form class="flex items-center flex-col" action="{% url 'item:items' %}" method="get">
+
+                <input type="text" name="query" class="w-full py-4 px-6 border  rounded-3xl" value="{{query}}" required placeholder="Search what you want...">
+
+                <button class="mt-2 py-2 px-8 text-lg bg-teal-500 text-white rounded-3xl ">Search</button>
+            </form>
+
+            <hr class="my-6">
+            <p class="font-semibold relative w-full">Categories
+
+                <a href="{% url 'item:items' %}" class="absolute right-0 text-red-500">Clear</a>
+            </p>
+            <ul>
+                {% for category in categories %}
+                    <li class="py-2 px-2 rounded-xl {% if category.id == category_id %} bg-gray-500 text-white{% endif %} hover:bg-gray-200">
+                        <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}" >{{category.name}}</a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+            
+
+        </div>
+        <div class="col-span-3">
+            <div class="grid grid-cols-3 gap-3 ">
+                {% if items %}
+                {% for item in items %}
+                    <div class="">
+                        <a href="{% url 'item:detail' item.id %}">
+                            <div>
+                                <img src="{{ item.image.url }}" alt="">
+                            </div>
+                            <div class="p-6 bg-gray-100  rounded-b-xl">
+                                <h2 class="text-2xl">{{ item.name }}</h2>
+                                <p class="text-gray-500">${{item.price}}</p>
+                            </div>
+                        </a>
+                    </div>
+    
+                {% endfor %}
+
+                {% else %}
+                <div class="w-full col-span-3 p-12 flex justify-center bg-gray-200 rounded-xl">
+                <h1 class="text-2xl font-normal">No items found!</h1>
+                </div>
+
+                {% endif %}
+    
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock content %}
+
+
