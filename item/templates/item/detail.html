@@ -4,17 +4,17 @@
 
 {% block content %}
 
-<div class="grid grid-cols-5 gap-6">
-    <div class="col-span-3">
+<div class="sm:grid grid-cols-5 gap-6">
+    <div class="col-span-3 m-3">
         <img src="{{ item.image.url }}" class="rounded-xl w-full" alt="">
     </div>
 
-    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
-        <h1 class="mb-6 relative text-3xl">{{item.name}}
+    <div class="col-span-2 p-6 bg-gray-100 rounded-xl text-center md:text-left">
+        <h1 class="mb-6 relative sm:text-3xl text-lg">{{item.name}}
             {% if item.is_sold == True %}
-            <span class="inline-block absolute right-0 text-lg bg-red-400 py-1 px-2 rounded-xl text-white">Sold out</span>
+            <span class="inline-block md:absolute right-0 sm:text-lg text-sm bg-red-400 py-1 px-2 rounded-xl text-white">Sold out</span>
             {% else %}
-            <span class="inline-block absolute right-0 text-lg bg-green-400 py-1 px-2 rounded-xl text-white">In stock</span>
+            <span class="inline-block md:absolute right-0 sm:text-lg text-sm bg-green-400 py-1 px-2 rounded-xl text-white">In stock</span>
             {% endif %}
 
         </h1>
@@ -30,7 +30,7 @@
         </p>
         {% endif %}
         {% if request.user == item.created_by %}
-        <div class="mt-6 p-6 bg-white rounded-xl">
+        <div class="mt-6 p-6 bg-white rounded-xl text-center md:text-left   ">
             <p>This is your item!</p>
             <a href="{% url 'item:edit' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-yellow-500 text-white rounded-xl">Edit</a>
             <a href="{% url 'item:delete'  item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Delete</a>
@@ -38,7 +38,7 @@
         {% else %}  
         <a href="{% url 'conversation:new' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-3xl hover:bg-teal-700">Contact seller</a>
         {% endif %}
-
+        
     </div>
 
 </div>
@@ -47,15 +47,15 @@
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
     <h2 class="mb-6 text-2xl text-center">Related items</h2>
 
-    <div class="grid grid-cols-5 gap-3">
+    <div class="grid md:grid-cols-5 grid-cols-2 gap-3">
         {% for item in related_items %}
             <div>
                 <a href="{% url 'item:detail' item.id %}">
-                    <div>
+                    <div class="md-shrink-0">
                         <img src="{{ item.image.url }}" alt="">
                     </div>
                     <div class="p-3 bg-white rounded-b-xl">
-                        <h2 class="text-xl">{{ item.name }}</h2>
+                        <h2 class="sm:text-xl break-words">{{ item.name }}</h2>
                         <p class="text-gray-500">{{item.price}}</p>
                     </div>
                 </a>    

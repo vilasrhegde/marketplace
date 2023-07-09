@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from item.models import Category, Item
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 
 from .forms import SignupForm
 
@@ -19,8 +19,12 @@ def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
 
-        if  form.is_valid():
-            form.save()
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.email = form.cleaned_data['email'].lower()
+            user.username = form.cleaned_data['username'].lower()
+            user.save()
+            login(request, user)
             return redirect('/login/')
     else:
         form = SignupForm()

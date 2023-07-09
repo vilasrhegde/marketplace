@@ -3,24 +3,127 @@
 {% block title %}Dashboard {% endblock title %}
 
 {% block content %}
-    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-        <h2 class="mb-12 text-2xl text-center">My items</h2>
 
-        <div class="grid grid-cols-3 gap-3">
+{% if request.user.is_superuser == True %}
+
+
+<div class="bg-gray-100 sm:p-6 p-3 rounded-xl max-h-[70vh] overflow-y-scroll">
+    <h1 class="text-center font-medium sm:text-3xl text-lg sm:mb-6 ">Welcome Superuser - {{request.user}}</h1>
+    <p class="text-center">Total users: {{ all_users.count }}</p>
+    <form action="{% url 'dashboard:delete' %}" method="POST" class="md:m-6">
+        {%  csrf_token %}
+            <table class="m-auto">
+                <th>Username</th>
+                <th>Email</th>
+                <th>Date joined</th>
+                <th>Last login</th>
+                <th>Superuser</th>
+                <th>Delete</th>        
+
+            
+            {% for user in all_users %}
+
+
+            <tr>
+            <td>
+            <input type="text" readonly name="username" value="{{ user.username}}"  class="p-3 m-2   rounded-xl shadow-lg"  placeholder="Username"/>
+            </td>
+
+            <td>
+                <input type="email" readonly name="email" value="{{ user.email}}"  class="p-3 m-2 rounded-xl shadow-lg"  placeholder="Email"/>
+            </td>
+
+            <td>
+                <input type="text" name="date_joined" readonly value="{{ user.date_joined}}"  class="p-3 m-2 rounded-xl shadow-lg"  placeholder="Username"/>
+            </td>
+
+            <td>
+                <input type="text" name="last_login" readonly value="{{ user.last_login}}"  class="p-3 m-2 rounded-xl shadow-lg"  placeholder="Username"/>
+            </td>
+            <td>
+                <a class="p-3 m-2 rounded-xl shadow-lg {% if user.is_superuser %} bg-green-700  text-white hover:bg-green-500 {%  else %} bg-red-400  text-white hover:bg-red-500  {% endif  %}" href="{% url 'dashboard:promote' user.pk %}">
+                    {{ user.is_superuser }}</a>
+            </td>
+            <td>
+                <input type="hidden" name="user_id" value="{{ user.id }}">
+                <button  class="p-3 m-2 shadow-lg rounded-xl bg-red-400 text-white hover:bg-red-500">Delete</button>
+            </td>
+
+
+            </tr>
+            {% if form.errors or form.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            {% endfor %}
+        
+            </table>
+        </form>
+
+
+</div>
+
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl shadow-2xl">
+    <h2 class="mb-12 sm:text-2xl text-lg text-center font-medium">Categories ({{ categories.count}})</h2>
+
+    <div class="grid sm:grid-cols-3 grid-cols-2 gap-3">
+        <a href="{% url 'dashboard:add_category' %}" class=" p-6 bg-teal-400 rounded-xl shadow-xl sm:text-2xl text-xl text-center text-white font-medium  hover:bg-teal-700"><h1>+</h1>Add new </a>
+        {% for category in categories %}
+
+        <div>
+            <a href="{% url 'item:items' %}?category={{category.id}}" class="text-center">
+                <div class="sm:p-6 p-3 bg-white rounded-xl shadow-xl">
+                    <h2 class="sm:text-2xl text-lg break-words">{{ category.name }}</h2>
+                    <p class="text-gray-500">{{category.items.count}} items</p>
+                </div>
+            </a>
+        </div>
+
+
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="sm:mb-12 mb-3 sm:text-2xl text-xl text-center font-medium">My items</h2>
+        <div class="grid sm:grid-cols-3 grid-cols-2 gap-3">
+            {% if items %}
             {% for item in items %}
-                <div>
+
+                <div class="shadow-xl h-fit  rounded-b-xl ">
                     <a href="{% url 'item:detail' item.id %}">
-                        <div>
-                            <img src="{{ item.image.url }}" alt="">
+                        <div class="md:shrink-0">
+                            <img src="{{ item.image.url }}" class="w-full {% if item.is_sold == True %} grayscale {% endif %}" alt="">
                         </div>
-                        <div class="p-6 bg-white rounded-b-xl">
-                            <h2 class="text-2xl">{{ item.name }}</h2>
-                            <p class="text-gray-500">${{item.price}}</p>
+                        <div class="sm:p-6 p-3 bg-gray-100 md:flex  md:justify-between justify-center rounded-b-xl ">
+                            <div>
+                                <h2 class="sm:text-2xl text-lg">{{ item.name }}</h2>
+                                <p class="text-gray-500">${{item.price}}</p>
+                            </div>
+                            <div >
+                                {% if item.is_sold == True %}
+                                <span class="inline-block   sm:text-lg text-sm bg-red-400 py-1 px-2 rounded-xl text-white">Sold out</span>
+                                {% else %}
+                                <span class="inline-block   sm:text-lg text-sm bg-green-400 py-1 px-2 rounded-xl text-white">In stock</span>
+                                {% endif %}
+                            </div>
                         </div>
                     </a>
                 </div>
 
             {% endfor %}
+            {% else %}
+            <div class="w-full col-span-3 p-12 flex justify-center shadow-lg flex-col items-center  bg-gray-200 rounded-xl">
+                <h1 class="sm:text-2xl text-center text-xl font-normal">You have no items!</h1>
+                <a href="{% url 'item:new' %}" class="underline mt-3">Add now</a>
+            </div>
+            {% endif %}
+
 
         </div>
     </div>

@@ -13,6 +13,6 @@ class ConversationMessageForm(forms.ModelForm):
                 'class':'w-full  p-2   rounded-3xl border',
                 'rows':2,
                 'cols':50,
-                'placeholder':'Enter you text here...'
+                'placeholder':'Your text goes here...'
             })
         }

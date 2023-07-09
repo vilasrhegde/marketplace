@@ -3,23 +3,28 @@
 {% block title %}Inbox{% endblock %}
 
 {% block content %}
-<h1 class="mb-6 text-3xl">Inbox</h1>
+<h1 class="mb-6 text-3xl text-center">Inbox</h1>
 
 <div class="space-y-6">
     {% for conversation in conversations %}
-        <a href="{% url 'conversation:detail' conversation.id %}">
-            <div class="p-6 flex bg-gray-100 rounded-xl">
-                <div class="pr-6">
-                     <img src="{{ conversation.item.image.url }}" class="w-20 rounded-xl" alt="image">
+        <a href="{% url 'conversation:detail' conversation.id %}" class="flex justify-center" >
+            <div class="p-6 md:w-1/2 w-full flex justify-between items-center	 bg-gray-100 rounded-xl m-3 {% if conversation.item.created_by != request.user %} bg-green-100  {% else %} bg-blue-100 {% endif %} ">
+                <div class="flex">
+                    <div class="pr-4 md-shrink-0">
+                        <img src="{{ conversation.item.image.url }}" class="w-20 rounded-xl" alt="image">
+                   </div>
+                   <div>
+                       {% for member in conversation.members.all %}
+                           {% if member != request.user %}
+                               <p class="mb-4"><strong>@{{ member.username }}</strong> | {{ conversation.modified_at }}</p>
+                               <p>{{ conversation.item.name }}</p>
+
+                           {% endif %}
+                       {% endfor %}
+                   </div>
                 </div>
                 <div>
-                    {% for member in conversation.members.all %}
-                        {% if member != request.user %}
-                            <p class="mb-4"><strong>{{ member.username }}</strong> | {{ conversation.modified_at }}</p>
-                            <p>{{ conversation.item.name }}</p>
-                        {% endif %}
-                    {% endfor %}
-
+                    <h3>✉️</h3>
                 </div>
             </div>
         </a>

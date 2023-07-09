@@ -1,0 +1,32 @@
+
+{% extends 'core/base.html' %}
+{% block title %}Add Category{% endblock  %}
+{% block content %}
+<!-- add_category.html -->
+<div class="w-full bg-gray-100 p-12 mt-3 rounded-xl shadow-xl flex flex-col items-center">
+    <h1 class="text-2xl font-medium text-center mb-12">Add Category</h1>
+    {% if form.errors or form.non_field_errors %}
+    <div class="mb-3 p-6 bg-red-100 rounded-xl">
+        {% for field in form %}
+            {{ field.errors }}
+        {% endfor %}
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+    <form method="POST" class="w-3/4 flex flex-row justify-center items-center" >
+        {% csrf_token %}
+        <!-- {{ form.as_p }} -->
+        <!-- <label for="category_list">Enter your new item:</label> -->
+        <input class="w-1/2 p-3 m-3 rounded-full shadow-xl text-center text-xl" type="text" name="name" list="category_list" placeholder="Enter your new item...">
+        <datalist id="category_list" >
+            {% for category in categories %}
+                <option value="{{ category.name }}">{{ category.name }}</option>
+            {% endfor %}
+        </datalist>
+        <button type="submit" class="font-medium text-xl  ml-3 bg-teal-400 text-white w-fit py-3 px-6 text-center rounded-full shadow-xl hover:bg-teal-700">Add</button>
+
+    </form>
+</div>
+
+  
+{% endblock content %}

@@ -3,16 +3,16 @@
 {% block title %}Conversation{% endblock %}
 
 {% block content %}
-<h1 class="mb-6 text-3xl">Conversation</h1>
+<h1 class="mb-6 text-3xl text-center font-medium">Conversation</h1>
 
 
-
+<div class=" bg-gray-100 rounded-xl shadow-lg ">
 <div class="space-y-6 p-3 relative grid justify-items-center max-h-[50vh] overflow-y-scroll">
     {% for message in conversation.messages.all %}
-            <div class="p-6 relative flex flex-col {% if message.created_by == request.user %} bg-green-100   ml-12 w-1/2 rounded-l-3xl    {% else %} bg-blue-100 mr-12 w-1/2 rounded-r-3xl  {% endif %} ">
+            <div class="sm:p-6 p-3 relative flex flex-col {% if message.created_by == request.user %} bg-green-100   ml-12 sm:w-1/2 rounded-l-3xl    {% else %} bg-blue-100 mr-12 sm:w-1/2 rounded-r-3xl  {% endif %} ">
                 <div>
                     <p class="mb-4"><strong>@{{ message.created_by.username }}</strong> |  {{ message.created_at }}</p>
-                    <p>{{ message.content }}</p>
+                    <p class="text-lg font-normal">{{ message.content }}</p>
                 </div>
             </div>
     {% endfor %}
@@ -36,5 +36,6 @@
     <button class="py-4 px-6   h-fit text-lg bg-teal-500 hover:bg-teal-700 rounded-full text-white">Send</button>
 
 </form>
+</div>
 
 {% endblock %}

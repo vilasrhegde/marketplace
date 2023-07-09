@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <div class="pb-6 grid grid-cols-4 gap-4">
+    <div class="pb-6 sm:grid grid-cols-4 gap-4">
         <div class="col-span1">
             <form class="flex items-center flex-col" action="{% url 'item:items' %}" method="get">
 
@@ -14,29 +14,32 @@
             </form>
 
             <hr class="my-6">
-            <p class="font-semibold relative w-full">Categories
 
-                <a href="{% url 'item:items' %}" class="absolute right-0 text-red-500">Clear</a>
-            </p>
-            <ul>
-                {% for category in categories %}
-                    <li class="py-2 px-2 rounded-xl {% if category.id == category_id %} bg-gray-500 text-white{% endif %} hover:bg-gray-200">
-                        <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}" >{{category.name}}</a>
-                    </li>
-                {% endfor %}
+            <div class="hidden sm:block">
+                <p class="font-semibold relative w-full">Categories
 
-            </ul>
+                    <a href="{% url 'item:items' %}" class="absolute right-0 text-red-500">Clear</a>
+                </p>
+                <ul>
+                    {% for category in categories %}
+                        <li class="py-2 px-2 rounded-xl {% if category.id == category_id %} bg-gray-500 text-white{% endif %}">
+                            <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}" >{{category.name}}</a>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
             
 
         </div>
-        <div class="col-span-3">
-            <div class="grid grid-cols-3 gap-3 ">
+        <div class="sm:col-span-3">
+            <!-- <div class="grid grid-cols-3 gap-3  ">
                 {% if items %}
                 {% for item in items %}
-                    <div class="">
+                    <div class="shadow-lg h-fit rounded-xl m-3 hover:shadow-2xl">
                         <a href="{% url 'item:detail' item.id %}">
                             <div>
-                                <img src="{{ item.image.url }}" alt="">
+                                <img src="{{ item.image.url }}" class="w-full" alt="">
                             </div>
                             <div class="p-6 bg-gray-100  rounded-b-xl">
                                 <h2 class="text-2xl">{{ item.name }}</h2>
@@ -44,7 +47,7 @@
                             </div>
                         </a>
                     </div>
-    
+
                 {% endfor %}
 
                 {% else %}
@@ -54,7 +57,78 @@
 
                 {% endif %}
     
+            </div> -->
+
+                {% if items %}
+                <div class="row ">
+
+                {% for item in items %}
+                    <div class="column m-2 ">
+                        
+                        <a href="{% url 'item:detail' item.id %}" class="">
+                            <div class="    ">
+                                <img src="{{ item.image.url }}" class="w-full rounded-t-xl   hover:drop-shadow-xl" alt="">
+                            </div>
+                            <div class="p-6 bg-gray-100  rounded-b-xl shadow-xl hover:shadow-2xl">
+                                <h2 class="sm:text-2xl text-lg break-words">{{ item.name }}</h2>
+                                <p class="text-gray-700">${{item.price}}</p>
+                            </div>
+                        </a>                    
+                    </div>
+                
+                {% endfor %}
             </div>
+
+                <style>
+                    .row {
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 0 4px;
+
+                    }
+
+                    /* Create four equal columns that sits next to each other */
+                    .column {
+                    flex: 25%;
+                    max-width: 50%;
+                    padding: 0 4px;
+                    height: fit-content;
+                    }
+                    
+
+                    .column img {
+                    margin-top: 8px;
+                    vertical-align: middle;
+                    width: 100%;
+                    transition: .5s ease-in-out;
+
+                    }
+
+
+                    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+                    @media screen and (max-width: 600px) {
+                    .row {
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 0 4px;
+                    height: auto;
+                    }
+                    .column {
+                        flex: 0%;
+                        max-width: 50%;
+                    }
+
+                }
+                </style>
+
+
+                {% else %}
+                <div class="w-full col-span-3 p-12 flex justify-center bg-gray-200 rounded-xl">
+                <h1 class="text-2xl font-normal">No items found!</h1>
+                </div>
+
+                {% endif %}
+    
         </div>
 
     </div>

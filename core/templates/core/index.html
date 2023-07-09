@@ -3,19 +3,24 @@
 {% block title %}Welcome {% endblock title %}
 
 {% block content %}
-    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-        <h2 class="mb-12 text-2xl text-center">Newest items</h2>
+    <div class="mt-6 sm:px-6 px-3 w-full py-12 bg-gray-100 rounded-xl shadow-xl">
+        <h2 class="md:mb-12 mb-3 font-medium text-2xl text-center">Newest items</h2>
 
-        <div class="grid grid-cols-3 gap-3 ">
+        <div class="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 items-stretch gap-3  ">
             {% for item in items %}
-                <div>
+                <div class="shadow-xl h-fit  rounded-b-xl ">
                     <a href="{% url 'item:detail' item.id %}">
-                        <div>
+                        <div class="md:shrink-0">
                             <img src="{{ item.image.url }}" class="w-full" alt="">
                         </div>
-                        <div class="p-6 bg-white  rounded-b-xl">
-                            <h2 class="text-2xl">{{ item.name }}</h2>
-                            <p class="text-gray-500">${{item.price}}</p>
+                        <div class="p-6 p-3 bg-white flex flex-wrap sm:justify-between justify-center  rounded-b-xl ">
+                            <div>
+                                <h2 class="sm:text-2xl break-words">{{ item.name }}</h2>
+                                <p class="text-gray-500">${{item.price}}</p>
+                            </div>
+                            <div >
+                                <p class=" hidden sm:block bg-gray-200 sm:px-3 sm:py-2  rounded-xl">{{ item.category }}</p>
+                            </div>
                         </div>
                     </a>
                 </div>
@@ -27,16 +32,16 @@
 
 
     </div>
-    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-        <h2 class="mb-12 text-2xl text-center">Categories</h2>
+    <div class="mt-6 sm:px-6 px-3 py-12 bg-gray-100 rounded-xl shadow-2xl">
+        <h2 class="mb-12 text-2xl text-center font-medium">Categories</h2>
 
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-2 sm:grid-cols-3 sm:gap-3 gap-2">
             {% for category in categories %}
 
             <div>
-                <a href="#">
-                    <div class="p-6 bg-white rounded-b-xl">
-                        <h2 class="text-2xl">{{ category.name }}</h2>
+                <a href="{% url 'item:items' %}?category={{category.id}}">
+                    <div class="p-6  bg-white rounded-xl shadow-xl">
+                        <h2 class="sm:text-2xl break-words">{{ category.name }}</h2>
                         <p class="text-gray-500">{{category.items.count}} items</p>
                     </div>
                 </a>
