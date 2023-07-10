@@ -2,7 +2,7 @@
 A Django website made to place and manage items on the platform to simplify shopping.
 
 
-# Features:
+## Features:
 
 - Authentication
 - Items gallery
@@ -13,7 +13,7 @@ A Django website made to place and manage items on the platform to simplify shop
 - Responsive and modern design interface
 
 
-# Tools needed:
+## Tools needed:
 1. Python - Django
 2. HTML, CSS & Tailwindcss
 3. SQLite database 
