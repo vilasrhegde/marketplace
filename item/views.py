@@ -17,6 +17,8 @@ def items(request):
     if query:
         items = items.filter(Q(name__icontains=query)|
                              Q(description__icontains=query))
+    
+    
     return render(request, 'item/items.html',{
         'items':items,
         'query':query,
@@ -27,6 +29,15 @@ def items(request):
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     related_items = Item.objects.filter(category=item.category).exclude(pk=pk)[:3]
+
+    if item.color:
+        item.color = item.color.replace(',', ' ')
+        item.color = item.color.replace('[', '')
+        item.color = item.color.replace(']', '')
+        item.color = item.color.replace("'", '')
+
+
+
 
     
     return render(request, 'item/detail.html',{
@@ -73,7 +84,7 @@ def edit(request, pk):
 
     return render(request, 'item/form.html',{
         'form':form,
-        'title':'Edit item'
+        'title':'Edit item',
     })
 
 

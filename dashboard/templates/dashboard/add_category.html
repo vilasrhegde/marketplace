@@ -3,8 +3,8 @@
 {% block title %}Add Category{% endblock  %}
 {% block content %}
 <!-- add_category.html -->
-<div class="w-full bg-gray-100 p-12 mt-3 rounded-xl shadow-xl flex flex-col items-center">
-    <h1 class="text-2xl font-medium text-center mb-12">Add Category</h1>
+<div class="w-full bg-gray-100 dark:bg-gray-800  p-12 mt-3 rounded-xl shadow-xl flex flex-col items-center">
+    <h1 class="text-2xl font-medium text-center dark:text-white mb-12">Add Category</h1>
     {% if form.errors or form.non_field_errors %}
     <div class="mb-3 p-6 bg-red-100 rounded-xl">
         {% for field in form %}

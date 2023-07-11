@@ -69,12 +69,13 @@ class NewItemForm(forms.ModelForm):
         self.fields['category'].empty_label = 'Select category'
         self.fields['category'].initial = ''
 
+
 # edit
 
 class EditItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ('image','name','size','color','description',)
+        fields = ('is_sold','image','name','size','color','description',)
 
         widgets = {
             'name':forms.TextInput(attrs={
@@ -90,7 +91,10 @@ class EditItemForm(forms.ModelForm):
             'size':forms.Select(attrs={
                 'class':INPUT_CLASSES
             },choices=SIZE_CHOICES),
-            'color':forms.Select(attrs={
+            'color':forms.SelectMultiple(attrs={
                 'class':INPUT_CLASSES
             },choices=COLOR_CHOICES),
+            'is_sold':forms.CheckboxInput(attrs={
+                'class':'text-left accent-emerald-500/25 w-5 h-5'
+            }),
         }

@@ -19,7 +19,7 @@ class Item(models.Model):
     size = models.CharField(max_length=100,blank=True,null=True)
     color = models.CharField(max_length=100,blank=True,null=True)
     gender = models.CharField(max_length=100,blank=True,null=True)
-    price=models.FloatField()
+    price=models.FloatField(default=0.0)
     image = models.ImageField(upload_to='item_images', blank=True, null=True)
     is_sold = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='items')

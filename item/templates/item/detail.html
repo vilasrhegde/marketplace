@@ -6,7 +6,7 @@
 
 <div class="sm:grid grid-cols-5 gap-6">
     <div class="col-span-3 m-3 ">
-        <img src="{{ item.image.url }}" class="rounded-xl max-w-[70%]  m-auto  dark:brightness-50" alt="">
+        <img src="{{ item.image.url }}" class="rounded-xl max-w-[70%]  m-auto  dark:brightness-100" alt="">
     </div>
 
     <div class="col-span-2 p-6 bg-gray-100 dark:text-white dark:bg-gray-800 rounded-xl text-center md:text-left">
@@ -23,6 +23,21 @@
             <div>
                 <h1 class="text-gray-500 dark:text-white md:text-3xl text-left">${{item.price}}</h1>
             </div>
+            {% if item.size %}
+            <div>
+                <p>Size: {{ item.size }}</p>
+            </div>
+            {% endif %}
+            {% if item.color %}
+            
+                <p>Colors: {{ item.color }}</p>
+            {%  endif %}
+
+            {% if item.gender %}
+            <div>
+                <p>Gender: {{ item.gender }}</p>
+            </div>
+            {% endif %}
         </div>
 
 
