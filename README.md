@@ -8,9 +8,10 @@ A Django website made to place and manage items on the platform to simplify shop
 - Items gallery
 - Search and Filters
 - Chat functionality between customer and seller
+- Admin dashboard
 - Interactive dashboard
 - Related items suggestion
-- Responsive and modern design interface
+- Responsive and modern design interface like automatic dark/light modes
 
 
 ## Tools needed:
@@ -22,7 +23,7 @@ A Django website made to place and manage items on the platform to simplify shop
 ![image](https://github.com/vilasrhegde/marketplace/assets/85540091/21cdc900-bed8-43d6-b11e-35504425cbd3)
 ![image](https://github.com/vilasrhegde/marketplace/assets/85540091/05044458-8da2-4784-8d01-9f4b56967055)
 ![image](https://github.com/vilasrhegde/marketplace/assets/85540091/ad968545-6b2b-4bd9-9946-9271d681dc64)
-![image](https://github.com/vilasrhegde/marketplace/assets/85540091/9bf49a66-604e-4fab-8da3-c7a63ffbefcf)
+![image](https://github.com/vilasrhegde/marketplace/assets/85540091/263ab3b7-50b3-4f13-b287-8f868eb7d1e1)
 ![image](https://github.com/vilasrhegde/marketplace/assets/85540091/d06aec24-534d-4edf-a120-2fb4f2d43afb)
 ![image](https://github.com/vilasrhegde/marketplace/assets/85540091/68b476c6-fa01-4a4a-b9b8-7295d069bb94)
 ![image](https://github.com/vilasrhegde/marketplace/assets/85540091/310a9986-73d2-48ef-817d-c4e23d2c17d2)
