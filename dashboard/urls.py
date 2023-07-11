@@ -9,7 +9,4 @@ urlpatterns = [
     path('promote/<int:pk>/', views.promoteUser, name='promote'),
     path('add-category/', views.add_category, name='add_category'),
     path('items/', include('item.urls')),
-
-
-
 ]

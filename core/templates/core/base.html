@@ -8,10 +8,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>{% block title %}{% endblock title %} | Marketplace</title>
 </head>
-<body>
-    <nav class="py-6 sm:px-6 w-full sm:flex flex-wrap justify-between items-center border-b border-gray-200">
-        <a href="/" class="md:text-xl font-semibold">Marketplace<span class="font-light"> | {{ request.user.username }}</span></a>
-    
+<body class="dark:bg-gray-900">
+    <nav class="dark:text-white py-6 sm:px-6 w-full sm:flex flex-wrap justify-between items-center border-b border-gray-200">
+            <a href="/" class="md:text-xl font-semibold ">Marketplace<span class="font-light"> | {{ request.user.username }}</span></a>
+
+
+            
         <div class="md:flex  md:space-x-6">
             <div class="flex items-center justify-end sm:space-x-6">
                 <a href="{% url 'item:new' %}" class=" m-3 sm:text-lg font-semibold hover:text-gray-500">New item</a>

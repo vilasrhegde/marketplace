@@ -7,7 +7,7 @@
 {% if request.user.is_superuser == True %}
 
 
-<div class="bg-gray-100 sm:p-6 p-3 rounded-xl max-h-[70vh] overflow-y-scroll">
+<div class="bg-gray-100 dark:text-white dark:bg-gray-800 sm:p-6 p-3 rounded-xl max-h-[70vh] overflow-y-scroll">
     <h1 class="text-center font-medium sm:text-3xl text-lg sm:mb-6 ">Welcome Superuser - {{request.user}}</h1>
     <p class="text-center">Total users: {{ all_users.count }}</p>
     <form action="{% url 'dashboard:delete' %}" method="POST" class="md:m-6">
@@ -24,7 +24,7 @@
             {% for user in all_users %}
 
 
-            <tr>
+            <tr class="dark:text-black   ">
             <td>
             <input type="text" readonly name="username" value="{{ user.username}}"  class="p-3 m-2   rounded-xl shadow-lg"  placeholder="Username"/>
             </td>
@@ -52,7 +52,7 @@
 
             </tr>
             {% if form.errors or form.non_field_errors %}
-            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+            <div class="mb-3 p-6 bg-red-100 dark:bg-red-500 rounded-xl">
                 {% for field in form %}
                     {{ field.errors }}
                 {% endfor %}
@@ -68,8 +68,8 @@
 
 </div>
 
-<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl shadow-2xl">
-    <h2 class="mb-12 sm:text-2xl text-lg text-center font-medium">Categories ({{ categories.count}})</h2>
+<div class="mt-6 px-6 py-12 bg-gray-100 dark:bg-gray-800  rounded-xl shadow-2xl">
+    <h2 class="mb-12 sm:text-2xl text-lg text-center font-medium dark:text-white">Categories ({{ categories.count}})</h2>
 
     <div class="grid sm:grid-cols-3 grid-cols-2 gap-3">
         <a href="{% url 'dashboard:add_category' %}" class=" p-6 bg-teal-400 rounded-xl shadow-xl sm:text-2xl text-xl text-center text-white font-medium  hover:bg-teal-700"><h1>+</h1>Add new </a>
@@ -77,7 +77,7 @@
 
         <div>
             <a href="{% url 'item:items' %}?category={{category.id}}" class="text-center">
-                <div class="sm:p-6 p-3 bg-white rounded-xl shadow-xl">
+                <div class="sm:p-6 p-3 bg-white dark:bg-gray-900 dark:text-white  rounded-xl shadow-xl">
                     <h2 class="sm:text-2xl text-lg break-words">{{ category.name }}</h2>
                     <p class="text-gray-500">{{category.items.count}} items</p>
                 </div>
@@ -89,7 +89,7 @@
     </div>
 </div>
 {% endif %}
-    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+    <div class="mt-6 px-6 py-12 bg-gray-100 dark:bg-gray-800 dark:text-white rounded-xl">
         <h2 class="sm:mb-12 mb-3 sm:text-2xl text-xl text-center font-medium">My items</h2>
         <div class="grid sm:grid-cols-3 grid-cols-2 gap-3">
             {% if items %}
@@ -100,7 +100,7 @@
                         <div class="md:shrink-0">
                             <img src="{{ item.image.url }}" class="w-full {% if item.is_sold == True %} grayscale {% endif %}" alt="">
                         </div>
-                        <div class="sm:p-6 p-3 bg-gray-100 md:flex  md:justify-between justify-center rounded-b-xl ">
+                        <div class="sm:p-6 p-3 bg-gray-100 md:flex dark:bg-gray-900 dark:text-white  md:justify-between justify-center rounded-b-xl ">
                             <div>
                                 <h2 class="sm:text-2xl text-lg">{{ item.name }}</h2>
                                 <p class="text-gray-500">${{item.price}}</p>

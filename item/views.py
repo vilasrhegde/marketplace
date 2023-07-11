@@ -1,5 +1,4 @@
 from django.shortcuts import render,get_object_or_404, redirect
-from .models import Item
 from django.contrib.auth.decorators import login_required
 from .forms import NewItemForm, EditItemForm
 from .models import Item, Category
@@ -48,11 +47,13 @@ def new(request):
             return redirect('item:detail', pk=item.id)
 
     else:
-        form = NewItemForm()
+        form = NewItemForm(initial={'category': 'default_category_value'})
+    categories = Category.objects.all()
 
     return render(request, 'item/form.html',{
         'form':form,
-        'title':'New item'
+        'title':'New item',
+        'categories':categories,
     })
 
 @login_required

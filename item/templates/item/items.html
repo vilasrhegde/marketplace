@@ -16,13 +16,13 @@
             <hr class="my-6">
 
             <div class="hidden sm:block">
-                <p class="font-semibold relative w-full">Categories
+                <p class="font-semibold relative w-full dark:text-white">Categories
 
                     <a href="{% url 'item:items' %}" class="absolute right-0 text-red-500">Clear</a>
                 </p>
                 <ul>
                     {% for category in categories %}
-                        <li class="py-2 px-2 rounded-xl {% if category.id == category_id %} bg-gray-500 text-white{% endif %}">
+                        <li class="py-2 px-2 dark:text-white rounded-xl {% if category.id == category_id %} bg-gray-500 text-white {% endif %}">
                             <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}" >{{category.name}}</a>
                         </li>
                     {% endfor %}
@@ -63,15 +63,15 @@
                 <div class="row ">
 
                 {% for item in items %}
-                    <div class="column m-2 ">
+                    <div class="column m-2  ">
                         
                         <a href="{% url 'item:detail' item.id %}" class="">
                             <div class="    ">
-                                <img src="{{ item.image.url }}" class="w-full rounded-t-xl   hover:drop-shadow-xl" alt="">
+                                <img src="{{ item.image.url }}" class="w-full rounded-t-xl dark:brightness-50   hover:drop-shadow-xl" alt="">
                             </div>
-                            <div class="p-6 bg-gray-100  rounded-b-xl shadow-xl hover:shadow-2xl">
+                            <div class="p-6 bg-gray-100 dark:text-white dark:bg-gray-800  rounded-b-xl shadow-xl hover:shadow-2xl">
                                 <h2 class="sm:text-2xl text-lg break-words">{{ item.name }}</h2>
-                                <p class="text-gray-700">${{item.price}}</p>
+                                <p class="light:text-gray-700">${{item.price}}</p>
                             </div>
                         </a>                    
                     </div>
